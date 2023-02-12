@@ -6792,20 +6792,26 @@ do
 end
 
 function library:SettingsTab(window)
-    local menu = window:Page({name = 'Menu', side = "Left"})
-    local theme = window:Page({name = 'Theme', side = "Left"})
+    local settings = window:Page({name = "Settings"})
+
+    local menu = settings:Section({name = 'Menu', side = "Left"})
+local theme = settings:Section({name = 'Theme', side = "Left"})
     menu:Toggle({name = "Show Watermark", flag = "watermark", default = false, callback = function(v)
-        library.watermark:Visibility()
-        library.watermark:Update('Visible', v)
+        window.watermark:Visibility()
+        window.watermark:Update('Visible', v)
     end})
 
     menu:Toggle({name = "Show Keybind List", flag = "keybindlist", default = false, callback = function(v)
-        library.keybindslist:Visibility()
-        library.keybindslist:Update('Visible', v)
+        window.keybindslist:Visibility()
+        window.keybindslist:Update('Visible', v)
     end})
-
+    
+    menu:Toggle({name = "Show Statuses", flag = "statuses", default = false, callback = function(v)
+        window.StatusList:Visibility()
+        window.StatusList:Update('Visible', v)
+    end})
     menu:Toggle({name = "Custom Cheat Name", flag = "customcheatname", default = false})
-    menu:TextBox({default = "vizuality", placeholder = "name", flag = "cheatname", maximum = 10, callback = function(v) window:SetName(v) end})
+   menu:TextBox({default = "vizuality", placeholder = "name", flag = "cheatname", maximum = 10, callback = function(v) if library.pointers.customcheatname then window:SetName(v) else window:SetName('vizuality') end end})
 
     for i, v in pairs(library.theme) do
         theme:Colorpicker({name = i, default = i, flag = i, alpha = 0.25, callback = function(a) library.theme[i] = a end})
