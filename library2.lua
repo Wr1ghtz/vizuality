@@ -25,9 +25,9 @@ local library = {
     hovers = {},
     Relations = {},
     folders = {
-        main = "vizuality",
-        assets = "vizuality/Images",
-        configs = "vizuality/Configs"
+        main = "Testfolder",
+        assets = "Testfolder/Images",
+        configs = "Testfolder/Configs"
     },
     shared = {
         initialized = false,
