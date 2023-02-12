@@ -6790,5 +6790,26 @@ do
         return list
     end
 end
+
+function library:SettingsTab(window)
+    local menu = window:Page({name = 'Menu', side = "Left"})
+    local theme = window:Page({name = 'Theme', side = "Left"})
+    menu:Toggle({name = "Show Watermark", flag = "watermark", default = false, callback = function(v)
+        library.watermark:Visibility()
+        library.watermark:Update('Visible', v)
+    end})
+
+    menu:Toggle({name = "Show Keybind List", flag = "keybindlist", default = false, callback = function(v)
+        library.keybindslist:Visibility()
+        library.keybindslist:Update('Visible', v)
+    end})
+
+    menu:Toggle({name = "Custom Cheat Name", flag = "customcheatname", default = false})
+    menu:TextBox({default = "vizuality", placeholder = "name", flag = "cheatname", maximum = 10, callback = function(v) window:SetName(v) end})
+
+    for i, v in pairs(library.theme) do
+        theme:Colorpicker({name = i, default = i, flag = i, alpha = 0.25, callback = function(a) library.theme[i] = a end})
+    end
+end
 --
 return library, utility, library.pointers, theme
