@@ -900,10 +900,12 @@ do
         local callback = info.callback or info.Callback or info.callBack or info.CallBack or function() end
         local style = info.style or info.Style or 1
         local pageammount = info.PageAmmount
+        local uibind = info.uibind
+        local wminfo = info.wminfo
         --
         theme.accent = accent
         --
-        local window = {pages = {}, loader = style == 2, init = false, pageammount = pageammount, isVisible = false, callback = callback, uibind = Enum.KeyCode.Z, wminfo = "vizuality | Latency: $PING ms", currentPage = nil, fading = false, dragging = false, drag = Vector2.new(0,0), currentContent = {frame = nil, dropdown = nil, multibox = nil, colorpicker = nil, keybind = nil, textbox = nil}}
+        local window = {pages = {}, loader = style == 2, init = false, pageammount = pageammount, isVisible = false, callback = callback, uibind = uibind, wminfo = wminfo, currentPage = nil, fading = false, dragging = false, drag = Vector2.new(0,0), currentContent = {frame = nil, dropdown = nil, multibox = nil, colorpicker = nil, keybind = nil, textbox = nil}}
         --
         local main_frame = utility:Create("Frame", {Vector2.new(0,0)}, {
             Size = utility:Size(0, size.X, 0, size.Y),
@@ -6788,33 +6790,6 @@ do
         section.currentAxis = section.currentAxis + ((list.max * 20) + 4) + 4
         --
         return list
-    end
-end
-
-function library:SettingsTab(window)
-    local settings = window:Page({name = "Settings"})
-
-    local menu = settings:Section({name = 'Menu', side = "Left"})
-local theme = settings:Section({name = 'Theme', side = "Left"})
-    menu:Toggle({name = "Show Watermark", flag = "watermark", default = false, callback = function(v)
-        window.watermark:Visibility()
-        window.watermark:Update('Visible', v)
-    end})
-
-    menu:Toggle({name = "Show Keybind List", flag = "keybindlist", default = false, callback = function(v)
-        window.keybindslist:Visibility()
-        window.keybindslist:Update('Visible', v)
-    end})
-    
-    menu:Toggle({name = "Show Statuses", flag = "statuses", default = false, callback = function(v)
-        window.StatusList:Visibility()
-        window.StatusList:Update('Visible', v)
-    end})
-    menu:Toggle({name = "Custom Cheat Name", flag = "customcheatname", default = false})
-   menu:TextBox({default = "vizuality", placeholder = "name", flag = "cheatname", maximum = 10, callback = function(v) if library.pointers.customcheatname then window:SetName(v) else window:SetName('vizuality') end end})
-
-    for i, v in pairs(library.theme) do
-        theme:Colorpicker({name = i, default = i, flag = i, alpha = 0.25, callback = function(a) library.theme[i] = a end})
     end
 end
 --
