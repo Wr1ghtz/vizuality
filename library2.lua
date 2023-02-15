@@ -6797,7 +6797,8 @@ function library:SettingsTab(window)
     local settings = window:Page({name = "Settings"})
     local theme = settings:Section({name = 'Theme', side = "Left"})
 
-    theme:Colorpicker({name = 'Accent', default = theme.accent, flag = 'accent', alpha = 0.25, callback = function(a) theme.accent = a end})
+    theme:Colorpicker({name = 'Accent', default = theme.accent, flag = 'accenttheme', alpha = 0.25, callback = function(a) theme.accent = Color3.fromRGB(a) end})
+    theme:Colorpicker({name = 'Light Contrast', default = theme.lightcontrast, flag = 'lightcontrasttheme', alpha = 0.25, callback = function(a) theme.lightcontrast = Color3.fromRGB(a) end})
 end
 --
 return library, utility, library.pointers, theme
